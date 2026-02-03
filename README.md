@@ -16,7 +16,7 @@
 
 
 ## 1. 概要
-国土交通省が保有するデータと民間等のデータを連携し、一元的に検索・表示・ダウンロードを可能にする[国土交通データプラットフォーム](https://www.mlit-data.jp/)が提供する利用者向けAPIと接続するMCP (Model Context Protocol) サーバー（α版）です。
+国土交通省が保有するデータと民間等のデータを連携し、一元的に検索・表示・ダウンロードを可能にする[国土交通データプラットフォーム](https://data-platform.mlit.go.jp/)が提供する利用者向けAPIと接続するMCP (Model Context Protocol) サーバー（α版）です。
 
 本MCPサーバーを利用することで、大規模言語モデル（LLM）と直接連携し、対話形式で直感的にデータを検索・取得することが可能になります。APIに関する専門的な知識がなくても、誰でも簡単に国土交通データプラットフォームから曖昧な指示や複雑な条件設定でデータを検索・取得が可能な、新しいデータ活用のかたちを提供します。
 
@@ -60,7 +60,7 @@ Claude DesktopなどのMCP対応AIアプリケーション および Python が�
 
 1. **国土交通データプラットフォームでアカウントを作成し、APIキーを取得**
    
-   詳しい手順は、[こちら](https://www.mlit-data.jp/api_docs/usage/introduction.html)をご覧ください。
+   詳しい手順は、[こちら](https://data-platform.mlit.go.jp/api_docs/usage/introduction.html)をご覧ください。
 
 2. **リポジトリをクローン**
 
@@ -90,14 +90,14 @@ Claude DesktopなどのMCP対応AIアプリケーション および Python が�
 
    ```
    MLIT_API_KEY=your_api_key_here
-   MLIT_BASE_URL=https://www.mlit-data.jp/api/v1/
+   MLIT_BASE_URL=https://data-platform.mlit.go.jp/api/v1/
    ```
 
    あるいはコマンドラインから直接設定することも可能です：
 
    ```bash
    export MLIT_API_KEY=your_api_key_here
-   export MLIT_BASE_URL=https://www.mlit-data.jp/api/v1/
+   export MLIT_BASE_URL=https://data-platform.mlit.go.jp/api/v1/
    ```
 
    `your_api_key_here`は必ず、手順1で取得したAPIキーに置き換えてください。
@@ -126,7 +126,7 @@ Claude DesktopなどのMCP対応AIアプリケーション および Python が�
          ],
          "env": {
            "MLIT_API_KEY": "your_api_key_here",
-           "MLIT_BASE_URL": "https://www.mlit-data.jp/api/v1/",
+           "MLIT_BASE_URL": "https://data-platform.mlit.go.jp/api/v1/",
            "PYTHONUNBUFFERED": "1",
            "LOG_LEVEL": "WARNING"
          }
@@ -162,8 +162,8 @@ mlit-dpf-mcp/
 
 
 ## 7. 注意事項
-* 本リポジトリで提供されるデータの利用に関しては、 [国土交通データプラットフォームの利用規約](https://www.mlit-data.jp/assets/policy/%E5%9B%BD%E5%9C%9F%E4%BA%A4%E9%80%9A%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84.pdf)に従う必要があります。ご使用前に国土交通データプラットフォームの利用規約を必ずご確認ください。
-* 本リポジトリの個人情報の取り扱いは、[国土交通データプラットフォームのプライバシーポリシー](https://www.mlit-data.jp/assets/policy/%E5%9B%BD%E5%9C%9F%E4%BA%A4%E9%80%9A%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0_%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC.pdf)に準拠しております。
+* 本リポジトリで提供されるデータの利用に関しては、 [国土交通データプラットフォームの利用規約](https://data-platform.mlit.go.jp/assets/policy/%E5%9B%BD%E5%9C%9F%E4%BA%A4%E9%80%9A%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84.pdf)に従う必要があります。ご使用前に国土交通データプラットフォームの利用規約を必ずご確認ください。
+* 本リポジトリの個人情報の取り扱いは、[国土交通データプラットフォームのプライバシーポリシー](https://data-platform.mlit.go.jp/assets/policy/%E5%9B%BD%E5%9C%9F%E4%BA%A4%E9%80%9A%E3%83%87%E3%83%BC%E3%82%BF%E3%83%97%E3%83%A9%E3%83%83%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0_%E3%83%97%E3%83%A9%E3%82%A4%E3%83%90%E3%82%B7%E3%83%BC%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC.pdf)に準拠しております。
 * 本リポジトリはα版として提供しているものです。動作保証は行っておりません。
 * 本リポジトリの内容は予告なく変更・削除する可能性があります。
 * 本リポジトリの利用により生じた損失及び障害等について、国土交通省及び国土交通データプラットフォームはいかなる責任も負わないものとします。

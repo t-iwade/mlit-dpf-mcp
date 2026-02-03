@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field, HttpUrl, ValidationError
 class Settings(BaseModel):
     # MLIT GraphQL endpoint & API key (REQUIRED)
     base_url: HttpUrl = Field(
-        default=os.getenv("MLIT_BASE_URL") or "https://www.mlit-data.jp/api/v1/"
+        default=os.getenv("MLIT_BASE_URL") or "https://data-platform.mlit.go.jp/api/v1/"
     )
     api_key: str = Field(..., alias="MLIT_API_KEY")
 

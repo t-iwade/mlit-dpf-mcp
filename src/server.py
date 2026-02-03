@@ -899,7 +899,7 @@ async def handle_list_tools() -> List[types.Tool]:
         ),
         types.Tool(
             name="get_file_download_urls",
-            description="""ファイルのダウンロード用URLを取得する。取得したURLがhttps://www.mlit-data.jp/download/で始まる場合、URLの有効期限は60秒。
+            description="""ファイルのダウンロード用URLを取得する。取得したURLがhttps://data-platform.mlit.go.jp/download/で始まる場合、URLの有効期限は60秒。
 
                 使い方:
                 - 事前に search / data API で対象データの `files`（id, original_path）を取得してから、本APIでダウンロードURLを生成します。
@@ -916,7 +916,7 @@ async def handle_list_tools() -> List[types.Tool]:
 
                 注意:
                 - `id` と `original_path` は、まず search / data のレスポンスに含まれる `DataClass.files` から取得してください。
-                - 取得したURLが `https://www.mlit-data.jp/download/` で始まる場合、**60秒以内にダウンロード開始**が必要です（期限切れに注意）。
+                - 取得したURLが `https://data-platform.mlit.go.jp/download/` で始まる場合、**60秒以内にダウンロード開始**が必要です（期限切れに注意）。
                 - 連携元サイトで直接ダウンロードできる場合は、メタデータ `DPF:downloadURLs` / `DPF:dataURLs` も併用してください。
                 - `original_path` を省略すると、付属ファイルの元ファイル名・パスが用いられます（files.original_pathを参照）。""",
             inputSchema={
@@ -1011,7 +1011,7 @@ async def handle_list_tools() -> List[types.Tool]:
         ),
         types.Tool(
             name="get_thumbnail_urls",
-            description="""データのサムネイル画像URLを取得する。取得したURLがhttps://www.mlit-data.jp/download/で始まる場合、URLの有効期限は60秒。
+            description="""データのサムネイル画像URLを取得する。取得したURLがhttps://data-platform.mlit.go.jp/download/で始まる場合、URLの有効期限は60秒。
 
                 使い方:
                 - 基本: dataset_id と data_id を指定して、そのデータに紐づくサムネイルURL一覧を取得します。

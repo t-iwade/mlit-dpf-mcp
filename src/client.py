@@ -31,7 +31,7 @@ class TransientHttpError(RuntimeError):
 class MLITClient:
     """
     GraphQL client for MLIT Data Platform.
-    - Endpoint: POST https://www.mlit-data.jp/api/v1/
+    - Endpoint: POST https://data-platform.mlit.go.jp/api/v1/
     - Header:  apikey: <MLIT_API_KEY>
     """
 
