@@ -1508,11 +1508,9 @@ async def _main() -> None:
 
 import os
 import contextlib
-
 from starlette.applications import Starlette
 from starlette.routing import Mount, Route
 from starlette.responses import JSONResponse
-
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 from starlette.types import Scope, Receive, Send
 
@@ -1523,13 +1521,11 @@ session_manager = StreamableHTTPSessionManager(
     app=server,
     json_response=True,
     stateless=True,
-)  # StreamableHTTP session manager / ASGI app [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
-class StreamableHTTPASGIApp:
-    """ASGI wrapper for MCP Streamable HTTP.
+) 
 
-    Some versions of the 'mcp' PyPI package don't expose StreamableHTTPASGIApp,
-    so we provide a tiny compatible wrapper.
-    """
+# StreamableHTTP session manager / ASGI app [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
+class StreamableHTTPASGIApp:
+    """Thin ASGI wrapper for MCP Streamable HTTP."""
     def __init__(self, session_manager: StreamableHTTPSessionManager):
         self.session_manager = session_manager
 
@@ -1541,10 +1537,8 @@ async def lifespan(app: Starlette):
     async with session_manager.run():
         yield  # session_manager.run() usage [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
 
-
 async def health(_request):
     return JSONResponse({"status": "ok"})
-
 
 mcp_asgi = StreamableHTTPASGIApp(session_manager)  # ASGI wrapper [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
 
