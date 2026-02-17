@@ -1504,6 +1504,49 @@ async def _main() -> None:
 
         await server.run(read, write, init_opts)
 
+# --- Streamable HTTP (ASGI) entrypoint ---
 
-if __name__ == "__main__":
-    anyio.run(_main)
+import os
+import contextlib
+
+from starlette.applications import Starlette
+from starlette.routing import Mount, Route
+from starlette.responses import JSONResponse
+
+from mcp.server.streamable_http_manager import (
+    StreamableHTTPSessionManager,
+    StreamableHTTPASGIApp,
+)
+
+# ここで "stateful / stateless" を選べます
+# - stateless=True: セッション保持しない（スケールしやすい）
+# - json_response=True: できるだけ JSON 応答（SSEを減らす）
+session_manager = StreamableHTTPSessionManager(
+    app=server,
+    json_response=True,
+    stateless=True,
+)  # StreamableHTTP session manager / ASGI app [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
+
+
+@contextlib.asynccontextmanager
+async def lifespan(app: Starlette):
+    async with session_manager.run():
+        yield  # session_manager.run() usage [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
+
+
+async def health(_request):
+    return JSONResponse({"status": "ok"})
+
+
+mcp_asgi = StreamableHTTPASGIApp(session_manager)  # ASGI wrapper [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
+
+
+app = Starlette(
+    routes=[
+        Route("/", endpoint=health, methods=["GET"]),
+        Route("/health", endpoint=health, methods=["GET"]),
+        Mount("/mcp", app=mcp_asgi),
+    ],
+    lifespan=lifespan,
+)
+
