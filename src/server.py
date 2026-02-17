@@ -1513,10 +1513,20 @@ from starlette.applications import Starlette
 from starlette.routing import Mount, Route
 from starlette.responses import JSONResponse
 
-from mcp.server.streamable_http_manager import (
-    StreamableHTTPSessionManager,
-    StreamableHTTPASGIApp,
-)
+from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+from starlette.types import Scope, Receive, Send
+
+class StreamableHTTPASGIApp:
+    """ASGI wrapper for MCP Streamable HTTP.
+
+    Some versions of the 'mcp' PyPI package don't expose StreamableHTTPASGIApp,
+    so we provide a tiny compatible wrapper.
+    """
+    def __init__(self, session_manager: StreamableHTTPSessionManager):
+        self.session_manager = session_manager
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        await self.session_manager.handle_request(scope, receive, send)
 
 # ここで "stateful / stateless" を選べます
 # - stateless=True: セッション保持しない（スケールしやすい）
