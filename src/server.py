@@ -1516,6 +1516,14 @@ from starlette.responses import JSONResponse
 from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
 from starlette.types import Scope, Receive, Send
 
+# ここで "stateful / stateless" を選べます
+# - stateless=True: セッション保持しない（スケールしやすい）
+# - json_response=True: できるだけ JSON 応答（SSEを減らす）
+session_manager = StreamableHTTPSessionManager(
+    app=server,
+    json_response=True,
+    stateless=True,
+)  # StreamableHTTP session manager / ASGI app [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
 class StreamableHTTPASGIApp:
     """ASGI wrapper for MCP Streamable HTTP.
 
@@ -1528,16 +1536,6 @@ class StreamableHTTPASGIApp:
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         await self.session_manager.handle_request(scope, receive, send)
 
-# ここで "stateful / stateless" を選べます
-# - stateless=True: セッション保持しない（スケールしやすい）
-# - json_response=True: できるだけ JSON 応答（SSEを減らす）
-session_manager = StreamableHTTPSessionManager(
-    app=server,
-    json_response=True,
-    stateless=True,
-)  # StreamableHTTP session manager / ASGI app [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
-
-
 @contextlib.asynccontextmanager
 async def lifespan(app: Starlette):
     async with session_manager.run():
@@ -1549,7 +1547,6 @@ async def health(_request):
 
 
 mcp_asgi = StreamableHTTPASGIApp(session_manager)  # ASGI wrapper [1](https://docs.azure.cn/en-us/app-service/overview-hosting-plans)
-
 
 app = Starlette(
     routes=[
